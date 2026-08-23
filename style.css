@@ -1,0 +1,321 @@
+/* Anandi Mani — academic site */
+
+:root {
+  --text: #1f2328;
+  --muted: #5c6570;
+  --link: #1155aa;
+  --rule: #e2e4e8;
+  --bg: #ffffff;
+  --accent-bg: #f6f7f9;
+  --wrap: 1240px;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  /* always reserve the scrollbar track, so collapsing the research
+     dropdowns below one screen can't jolt the layout wider */
+  scrollbar-gutter: stable;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.65;
+}
+
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.wrap {
+  max-width: var(--wrap);
+  /* explicit width so the container can never shrink-wrap its content
+     and change size as the research dropdowns are toggled */
+  width: 100%;
+  margin: 0 auto;
+  /* longhand on purpose: the shorthand would reset the vertical padding
+     that <main class="wrap"> inherits from the `main` rule below */
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+/* ---------- header / tabs ---------- */
+
+.site-header {
+  border-bottom: 1px solid var(--rule);
+  background: var(--bg);
+}
+
+.site-header .wrap {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px 24px;
+  padding-top: 22px;
+  padding-bottom: 0;
+}
+
+.brand {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 26px;
+  letter-spacing: 0.01em;
+  color: var(--text);
+  padding-bottom: 14px;
+}
+.brand:hover { text-decoration: none; }
+
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.tabs a {
+  display: block;
+  padding: 8px 14px 12px;
+  color: var(--muted);
+  font-size: 15px;
+  letter-spacing: 0.02em;
+  border-bottom: 3px solid transparent;
+}
+
+.tabs a:hover {
+  color: var(--text);
+  text-decoration: none;
+  border-bottom-color: var(--rule);
+}
+
+.tabs a.active {
+  color: var(--text);
+  border-bottom-color: var(--text);
+}
+
+/* ---------- content ---------- */
+
+main { padding: 48px 0 64px; }
+
+h1 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 34px;
+  font-weight: normal;
+  margin: 0 0 28px;
+}
+
+h2 {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 44px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--rule);
+}
+
+p { margin: 0 0 16px; }
+
+/* ---------- home ---------- */
+
+/* full-bleed banner directly under the nav */
+.banner {
+  display: block;
+  width: 100%;
+  height: clamp(170px, 25vw, 290px);
+  object-fit: cover;
+  object-position: center;
+}
+
+/* photo on the left, name + bio on the right */
+.intro {
+  display: flex;
+  align-items: flex-start;
+  gap: 34px;
+}
+
+.intro .photo {
+  flex: 0 0 210px;
+  width: 210px;
+  border-radius: 3px;
+  display: block;
+}
+
+.intro .about { flex: 1 1 auto; min-width: 0; }
+
+.intro .name {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 34px;
+  margin: 0 0 8px;
+  font-weight: normal;
+  line-height: 1.2;
+}
+
+.intro .title {
+  color: var(--muted);
+  font-size: 17px;
+  margin: 0 0 6px;
+}
+
+.intro .email {
+  font-size: 16px;
+  margin: 0 0 22px;
+}
+
+/* ---------- research themes (dropdowns) ---------- */
+
+details.theme {
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  margin-bottom: 12px;
+  background: var(--bg);
+}
+
+details.theme > summary {
+  cursor: pointer;
+  padding: 15px 20px;
+  font-size: 18px;
+  font-weight: 600;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-radius: 4px;
+  /* reserve the divider's 1px at all times: colouring it in on open
+     keeps the header row exactly the same height either way */
+  border-bottom: 1px solid transparent;
+}
+
+details.theme > summary::-webkit-details-marker { display: none; }
+
+details.theme > summary::before {
+  content: "";
+  flex: none;
+  width: 7px;
+  height: 7px;
+  border-right: 2px solid var(--muted);
+  border-bottom: 2px solid var(--muted);
+  transform: rotate(-45deg);
+  transition: transform 0.15s ease;
+}
+
+details.theme[open] > summary::before { transform: rotate(45deg); }
+details.theme > summary:hover { background: var(--accent-bg); }
+details.theme[open] > summary { border-bottom-color: var(--rule); }
+
+.papers {
+  list-style: none;
+  margin: 0;
+  padding: 8px 20px 16px;
+}
+
+.papers li {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.papers li:last-child { border-bottom: none; }
+
+.papers .t { font-weight: 600; }
+.papers .m {
+  display: block;
+  color: var(--muted);
+  font-size: 15px;
+  margin-top: 2px;
+}
+
+/* ---------- press / media ---------- */
+
+.videos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 28px;
+  margin-bottom: 8px;
+}
+
+.video figcaption {
+  color: var(--muted);
+  font-size: 15px;
+  margin-top: 8px;
+}
+
+.ratio {
+  position: relative;
+  padding-top: 56.25%;
+  background: var(--accent-bg);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.ratio iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.links li {
+  padding: 11px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.links li:last-child { border-bottom: none; }
+
+.links .m {
+  display: block;
+  color: var(--muted);
+  font-size: 15px;
+  margin-top: 2px;
+}
+
+/* ---------- teaching ---------- */
+
+.courses { list-style: none; margin: 0; padding: 0; }
+
+.courses li {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.courses li:last-child { border-bottom: none; }
+
+.courses .t { font-weight: 600; }
+.courses .m {
+  display: block;
+  color: var(--muted);
+  font-size: 15px;
+  margin-top: 2px;
+}
+
+/* ---------- small screens ---------- */
+
+@media (max-width: 620px) {
+  body { font-size: 16px; }
+  .site-header .wrap { padding-top: 18px; }
+  .brand { font-size: 22px; padding-bottom: 8px; }
+  .tabs a { padding: 8px 10px 10px; }
+  h1 { font-size: 28px; }
+  main { padding: 32px 0 48px; }
+
+  /* stack the photo above the bio, centred */
+  .intro {
+    display: block;
+    text-align: center;
+  }
+  .intro .photo {
+    width: 180px;
+    max-width: 55%;
+    margin: 0 auto 22px;
+  }
+  .intro .name { font-size: 28px; }
+  .intro .about { text-align: left; }
+  .intro .name,
+  .intro .title { text-align: center; }
+}
