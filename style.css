@@ -119,22 +119,39 @@ h2 {
 
 p { margin: 0 0 16px; }
 
+/* the pages no longer open with an <h1>, so drop the leading
+   margin that would otherwise double up with main's padding */
+main > :first-child { margin-top: 0; }
+
 /* ---------- home ---------- */
 
-/* full-bleed banner directly under the nav */
-.banner {
-  display: block;
-  width: 100%;
-  height: clamp(170px, 25vw, 290px);
-  object-fit: cover;
-  object-position: center;
+/* the home page is a single screen: header, then the hero fills the rest */
+body.home {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-/* photo on the left, name + bio on the right */
+.hero {
+  flex: 1 0 auto;
+  display: flex;
+  align-items: center;
+  padding: 40px 0;
+  background: url('bg.jpg') center / cover no-repeat;
+}
+
+/* translucent card floating over the photo:
+   photo on the left, name + bio on the right */
 .intro {
   display: flex;
   align-items: flex-start;
   gap: 34px;
+  padding: 34px 38px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 8px 34px rgba(0, 0, 0, 0.22);
 }
 
 .intro .photo {
@@ -304,10 +321,13 @@ details.theme[open] > summary { border-bottom-color: var(--rule); }
   h1 { font-size: 28px; }
   main { padding: 32px 0 48px; }
 
+  .hero { padding: 24px 0; }
+
   /* stack the photo above the bio, centred */
   .intro {
     display: block;
     text-align: center;
+    padding: 26px 22px;
   }
   .intro .photo {
     width: 180px;
